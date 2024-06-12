@@ -1,0 +1,47 @@
+<html>
+<head>
+<title>EmployeeController.java</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #cc7832;}
+.s1 { color: #a9b7c6;}
+.s2 { color: #6a8759;}
+.s3 { color: #6897bb;}
+</style>
+</head>
+<body bgcolor="#2b2b2b">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+EmployeeController.java</font>
+</center></td></tr></table>
+<pre><span class="s0">package </span><span class="s1">com.serveronspring.SpringServer.controller</span><span class="s0">;</span>
+
+<span class="s0">import </span><span class="s1">com.serveronspring.SpringServer.model.employee.Employee</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">com.serveronspring.SpringServer.model.employee.EmployeeDao</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">org.springframework.beans.factory.annotation.Autowired</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">org.springframework.web.bind.annotation.*</span><span class="s0">;</span>
+
+<span class="s0">import </span><span class="s1">java.util.List</span><span class="s0">;</span>
+
+<span class="s1">@RestController</span>
+<span class="s0">public class </span><span class="s1">EmployeeController {</span>
+
+   <span class="s1">@Autowired</span>
+  <span class="s0">private </span><span class="s1">EmployeeDao employeeDao</span><span class="s0">;</span>
+
+
+    <span class="s1">@GetMapping(</span><span class="s2">&quot;/employee/get-all&quot;</span><span class="s1">)</span>
+    <span class="s0">public </span><span class="s1">List&lt;Employee&gt; getAllEmployees(){</span>
+        <span class="s0">return  </span><span class="s1">employeeDao.getAllEmployees()</span><span class="s0">;</span>
+    <span class="s1">}</span>
+    <span class="s1">@PostMapping(</span><span class="s2">&quot;/employee/save&quot;</span><span class="s1">)</span>
+    <span class="s0">public </span><span class="s1">Employee getAllEmployees(@RequestBody Employee employee){</span>
+        <span class="s1">employee.setId(employeeDao.getCount()==</span><span class="s3">0</span><span class="s1">? </span><span class="s3">1</span><span class="s1">:employeeDao.getCount()+</span><span class="s3">1</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s0">return  </span><span class="s1">employeeDao.save(employee)</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+<span class="s1">}</span>
+</pre>
+</body>
+</html>
