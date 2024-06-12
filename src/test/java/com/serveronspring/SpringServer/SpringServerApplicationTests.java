@@ -22,8 +22,7 @@ class SpringServerApplicationTests {
 	void addEmployeeTest() {
 		Employee employee =new Employee();
 		employee.setName("Bryce Afler");
-		employee.setLocation("Building-2");
-		employee.setBranch("Security");
+
 		employee.setId((employeeDao.getCount()+1));
 		employeeDao.save(employee);
 
