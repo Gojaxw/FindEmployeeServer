@@ -22,7 +22,7 @@ public class EmployeeDao {
         repository.delete(employee);
     }
     public List<Employee> getAllEmployees(){
-    List<Employee> employees=new ArrayList<>();
+  List<Employee> employees=new ArrayList<>();
         Streamable.of(repository.findAll())
                 .forEach(employees::add);
     return  employees;
