@@ -2,6 +2,7 @@ package com.serveronspring.SpringServer.controller;
 
 import com.serveronspring.SpringServer.model.employee.Employee;
 import com.serveronspring.SpringServer.model.employee.EmployeeDao;
+import com.sun.net.httpserver.Authenticator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -29,6 +30,22 @@ public class EmployeeController {
         employeeDao.save(employee);
         return employeeDao.getAllEmployees();
     }
+    @PostMapping("employee/save-new-coordinate")
+    public Employee saveNewCoordinate(@RequestBody Employee employee ){
+        Integer id=employee.getId();
+        employeeDao.deleteById(employee.getId());
+        employeeDao.save(employee);
+        return employeeDao.getById(employee.getId()).get();
+    }
+    @PostMapping("/employee/save")
+    public Employee signUp(@RequestBody Employee employee){
+
+        Integer id=employee.getId();
+        if(id<1){
+            employee.setId(employeeDao.getCount()+1);
+        }
+        return  employeeDao.save(employee);
+    }
     @PostMapping("/employee/getEmployee/{userId}")
     public Employee getEmployee(@PathVariable Integer userId){
         return employeeDao.getById(userId).get();
@@ -51,15 +68,7 @@ public class EmployeeController {
         employee.setMail(email);
         return  employee;
     }
-    @PostMapping("/employee/save")
-    public Employee signUp(@RequestBody Employee employee){
 
-        Integer id=employee.getId();
-        if(id.equals(0)){
-            employee.setId(employeeDao.getCount()==0? 1:employeeDao.getCount()+1);
-        }
-        return  employeeDao.save(employee);
-    }
     @DeleteMapping("/employee/delete/{userId}")
     public String getAllEmployees(@PathVariable Integer userId){
         employeeDao.deleteById(userId);
